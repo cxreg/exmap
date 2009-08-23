@@ -392,7 +392,7 @@ int setup_from_pid(pid_t pid)
 	struct task_struct *tsk;
 	int errcode = -EINVAL;
 
-	tsk = find_task_by_pid(pid);
+	tsk = find_task_by_pid_type_ns(PIDTYPE_PID, pid, &init_pid_ns);
 	if (tsk == NULL) {
 		printk (KERN_ALERT
 			"/proc/%s: can't find task for pid %d\n",
@@ -507,7 +507,7 @@ int init_module ()
 							NULL);
 
 	if (exmap_proc_file == NULL) {
-		remove_proc_entry (PROCFS_NAME, &proc_root);
+		remove_proc_entry (PROCFS_NAME, NULL);
 		printk (KERN_ALERT "/proc/%s: could not initialize\n",
 			PROCFS_NAME);
 		return -ENOMEM;
@@ -532,5 +532,5 @@ int init_module ()
 void cleanup_module ()
 {
 	printk (KERN_INFO "/proc/%s: remove\n", PROCFS_NAME);
-	remove_proc_entry (PROCFS_NAME, &proc_root);
+	remove_proc_entry (PROCFS_NAME, NULL);
 }
