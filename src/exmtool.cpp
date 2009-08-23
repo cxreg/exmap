@@ -22,15 +22,15 @@ struct command
     Handler handler;
     char *usage;
 } cmd_handles[] = {
-    { "procs",
+    { (char*)"procs",
       do_procs,
-    "list the known processes"},
-    { "files",
+    (char*)"list the known processes"},
+    { (char*)"files",
       do_files,
-    "list the known files"},
-    { "showmaps",
+    (char*)"list the known files"},
+    { (char*)"showmaps",
       do_showmaps,
-    "list the maps of a particular process"},
+    (char*)"list the maps of a particular process"},
     { NULL, NULL, NULL },
 };
 
